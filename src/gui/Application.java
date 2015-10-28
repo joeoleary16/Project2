@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 
 public class Application {
@@ -35,7 +36,7 @@ public class Application {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 401, 265);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
