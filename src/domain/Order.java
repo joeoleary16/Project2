@@ -8,6 +8,7 @@ public class Order {
 	private String id;
 	private Date creationDT;
 	private boolean approved;
+	private boolean draft;
 	private Date assessedDT;
 	private Document document;
 	private ArrayList<OrderItem> items;
@@ -15,7 +16,9 @@ public class Order {
 	public Order(String staffID) {
 		//TODO: generate random unique ID (based on time?)
 		creationDT = new Date();
+		id = staffID + '-' + creationDT.getTime();
 		approved = false;
+		draft = true;
 		items = new ArrayList<OrderItem>();
 	}
 	
@@ -36,6 +39,12 @@ public class Order {
 	}
 	public void setApproved(boolean approved) {
 		this.approved = approved;
+	}
+	public boolean isDraft() {
+		return draft;
+	}
+	public void setDraft(boolean draft) {
+		this.draft = draft;
 	}
 	public Date getAssessedDT() {
 		return assessedDT;
