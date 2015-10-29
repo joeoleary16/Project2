@@ -16,7 +16,7 @@ public class Order {
 		//TODO: generate random unique ID (based on time?)
 		creationDT = new Date();
 		approved = false;
-		items = new ArrayList<>();
+		items = new ArrayList<OrderItem>();
 	}
 	
 	public String getId() {
