@@ -1,15 +1,16 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller {
 	public static final String VERSION = "1.0";
-	private ArrayList<Order> newOrders;
+	private HashMap<String, Order> orders;
 	private ArrayList<Supplier> suppliers;
 	
 	public Controller() {
-		newOrders = new ArrayList<>();
-		suppliers = new ArrayList<>();
+		orders = new HashMap<String, Order>();
+		suppliers = new ArrayList<Supplier>();
 	}
 	
 	/**
@@ -23,7 +24,8 @@ public class Controller {
 				return supplier;
 			}
 		}
-		return null;
+		return null; //TODO: something important
+		
 	}
 	
 	/**
@@ -32,12 +34,7 @@ public class Controller {
 	 * @return
 	 */
 	public Order getOrder(String orderID) {
-		for(Order order : newOrders) {
-			if(order.getId().equals(orderID)) {
-				return order;
-			}
-		}
-		return null;
+		return (orders.containsKey(orderID)) ? orders.get(orderID) : null;
 	}
 
 }
