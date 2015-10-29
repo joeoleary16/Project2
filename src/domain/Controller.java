@@ -6,10 +6,12 @@ import java.util.HashMap;
 public class Controller {
 	public static final String VERSION = "1.0";
 	private HashMap<String, Order> orders;
+	private HashMap<String, Service> services;
 	private ArrayList<Supplier> suppliers;
 	
 	public Controller() {
 		orders = new HashMap<String, Order>();
+		services = new HashMap<String, Service>();
 		suppliers = new ArrayList<Supplier>();
 	}
 	
@@ -25,7 +27,6 @@ public class Controller {
 			}
 		}
 		return null; //TODO: something important
-		
 	}
 	
 	/**
@@ -37,4 +38,7 @@ public class Controller {
 		return (orders.containsKey(orderID)) ? orders.get(orderID) : null;
 	}
 
+	public Service getService(String serviceID) {
+		return (services.containsKey(serviceID)) ? services.get(serviceID) : null;
+	}
 }

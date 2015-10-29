@@ -1,7 +1,10 @@
 package domain;
 
+import java.util.Date;
+
 public class Service {
 	private String id;
+	private Date creationDT;
 	private String name;
 	private String description;
 	private double estTime;
@@ -14,7 +17,8 @@ public class Service {
 	
 	public Service(String id, String name, String description, double estTime) {
 		super();
-		//TODO: generate random unique ID 
+		creationDT = new Date();
+		this.id = id + '-' + creationDT.getTime();
 		this.name = name;
 		this.description = description;
 		this.estTime = estTime;

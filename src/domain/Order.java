@@ -11,10 +11,10 @@ public class Order {
 	private boolean draft;
 	private Date assessedDT;
 	private Document document;
+	private Location location;
 	private ArrayList<OrderItem> items;
 	
 	public Order(String staffID) {
-		//TODO: generate random unique ID (based on time?)
 		creationDT = new Date();
 		id = staffID + '-' + creationDT.getTime();
 		approved = false;
@@ -57,6 +57,12 @@ public class Order {
 	}
 	public void setDocument(Document document) {
 		this.document = document;
+	}
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	public ArrayList<OrderItem> getItems() {
 		return items;
