@@ -1,12 +1,14 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Application {
 
-	private JFrame frame;
+	private JFrame frmIudis;
 
 	/**
 	 * Launch the application.
@@ -16,7 +18,7 @@ public class Application {
 			public void run() {
 				try {
 					Application window = new Application();
-					window.frame.setVisible(true);
+					window.frmIudis.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,9 +37,19 @@ public class Application {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 401, 265);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIudis = new JFrame();
+		frmIudis.setTitle("IUDIS");
+		frmIudis.setBounds(100, 100, 401, 265);
+		frmIudis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		MainView mainView = new MainView(this);
+		frmIudis.getContentPane().add(mainView, BorderLayout.CENTER);
+		frmIudis.pack();
 	}
-
+	
+	public void swapPane(JPanel newPanel) {
+		frmIudis.getContentPane().removeAll();
+		frmIudis.getContentPane().add(newPanel);
+		frmIudis.pack();
+	}
 }
