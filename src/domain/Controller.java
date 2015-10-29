@@ -8,8 +8,8 @@ public class Controller {
 	private ArrayList<Supplier> suppliers;
 	
 	public Controller() {
-		newOrders = new ArrayList<>();
-		suppliers = new ArrayList<>();
+		newOrders = new ArrayList<Order>();
+		suppliers = new ArrayList<Supplier>();
 	}
 	
 	/**
@@ -23,7 +23,8 @@ public class Controller {
 				return supplier;
 			}
 		}
-		return null;
+		return null; //TODO: something important
+		
 	}
 	
 	/**
