@@ -6,13 +6,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 
 public class AddItemView extends JPanel {
-
+	Application root;
+	JLabel lblAddItem;	
+	
 	/**
 	 * Create the panel.
 	 */
-	public AddItemView() {
-		
-		JLabel lblAddItem = new JLabel("Add Item");
+	public AddItemView(Application root) {
+		this.root = root;
+		lblAddItem = new JLabel("Add Item");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

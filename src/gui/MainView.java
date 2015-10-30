@@ -60,7 +60,7 @@ public class MainView extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				root.swapPane(new MakeOrderView());
+				root.swapPane(new MakeOrderView(root));
 			}
 		});
 		

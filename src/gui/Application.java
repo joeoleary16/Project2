@@ -6,14 +6,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import domain.Controller;
+
 public class Application {
 
 	private JFrame frmIudis;
+	private static Controller controller;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		controller = new Controller();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -12,29 +15,32 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 public class MakeOrderView extends JPanel {
-
+	Application root;
+	JLabel lblMakeOrder;	
+	JList listItems;
+	JButton btnAddItem;
+	JButton btnConfirmOrder;
+	JComboBox cbxLocation;
+	JLabel lblLocation;
+	JLabel lblDocument;
+	JLabel lblDocumentName;
+	JButton btnUpload;
+	JButton btnDeleteItem;
+	
 	/**
 	 * Create the panel.
 	 */
-	public MakeOrderView() {
-		
-		JLabel lblMakeOrder = new JLabel("Make Order");
-		
-		JList listItems = new JList();
-		
-		JButton btnAddItem = new JButton("+");
-		
-		JButton btnConfirmOrder = new JButton("Confirm Order");
-		
-		JComboBox cbxLocation = new JComboBox();
-		
-		JLabel lblLocation = new JLabel("Location:");
-		
-		JLabel lblDocument = new JLabel("Document:");
-		
-		JLabel lblDocumentName = new JLabel("document name");
-		
-		JButton btnUpload = new JButton("Upload");
+	public MakeOrderView(Application root) {
+		this.root = root;
+		lblMakeOrder = new JLabel("Make Order");
+		listItems = new JList();
+		btnAddItem = new JButton("+");
+		btnConfirmOrder = new JButton("Confirm Order");
+		cbxLocation = new JComboBox();
+		lblLocation = new JLabel("Location:");
+		lblDocument = new JLabel("Document:");
+		lblDocumentName = new JLabel("document name");
+		btnUpload = new JButton("Upload");
 		
 		JButton btnDeleteItem = new JButton("-");
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -105,7 +111,16 @@ public class MakeOrderView extends JPanel {
 					.addContainerGap())
 		);
 		setLayout(groupLayout);
-
-		
+		addEventListeners();
+	}
+	
+	private void addEventListeners() {
+		btnAddItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				root.swapPane(new AddItemView(root));
+			}
+		});	
 	}
 }
