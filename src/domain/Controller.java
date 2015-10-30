@@ -41,4 +41,9 @@ public class Controller {
 	public Service getService(String serviceID) {
 		return (services.containsKey(serviceID)) ? services.get(serviceID) : null;
 	}
+	
+	public String makeOrder(String staffID) {
+		Order o = new Order(staffID) ;
+		return o.getId() ;
+	}
 }
