@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -138,8 +139,11 @@ public class MakeOrderView extends JPanel {
         btnConfirmOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-            	Application.controller.setOrderLocation(orderID, locationID[cbxLocation.getSelectedIndex()]);
-                root.swapPane(new MainView(root));
+            	int response = JOptionPane.showConfirmDialog(null, "Are you sure you would like to confirm this order?");
+            	if (response == JOptionPane.YES_OPTION) {
+            		Application.controller.setOrderLocation(orderID, locationID[cbxLocation.getSelectedIndex()]);
+                    root.swapPane(new MainView(root));
+            	}
             }
         });
     }

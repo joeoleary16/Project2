@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
@@ -124,8 +125,11 @@ public class RequestService extends JPanel {
 		btnRequestService.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Application.controller.enterServiceDetails(serviceID, txtName.getText(), txtDescription.getText(), Double.parseDouble(txtTime.getText()), locationID[comboBox.getSelectedIndex()]);
-                root.swapPane(new MainView(root));
+            	int response = JOptionPane.showConfirmDialog(null, "Are you sure you would like to request this service?");
+            	if (response == JOptionPane.YES_OPTION) {
+            		Application.controller.enterServiceDetails(serviceID, txtName.getText(), txtDescription.getText(), Double.parseDouble(txtTime.getText()), locationID[comboBox.getSelectedIndex()]);
+                    root.swapPane(new MainView(root));
+            	}                
             }
         });
 	}
