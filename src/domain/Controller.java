@@ -88,4 +88,36 @@ public class Controller {
         Service s = getService(serviceID);
         s.setDraft(false);
     }
+
+	public HashMap<String, Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(HashMap<String, Order> orders) {
+		this.orders = orders;
+	}
+
+	public HashMap<String, Service> getServices() {
+		return services;
+	}
+
+	public void setServices(HashMap<String, Service> services) {
+		this.services = services;
+	}
+
+	public ArrayList<Supplier> getSuppliers() {
+		return suppliers;
+	}
+
+	public void setSuppliers(ArrayList<Supplier> suppliers) {
+		this.suppliers = suppliers;
+	}
+
+	public ArrayList<Location> getLocations() {
+		return locations;
+	}
+
+	public void setLocations(ArrayList<Location> locations) {
+		this.locations = locations;
+	}
 }
