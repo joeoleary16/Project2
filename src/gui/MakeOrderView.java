@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -23,6 +24,8 @@ public class MakeOrderView extends JPanel {
 	private Application root;
 	private JButton btnAddItem;
 	private JButton btnConfirmOrder;
+	private JButton btnUpload;
+	private JLabel lblDocumentName;
 	private String orderID = "";
 	private String[] locationID;
 	private JComboBox cbxLocation;
@@ -53,8 +56,8 @@ public class MakeOrderView extends JPanel {
         cbxLocation = new JComboBox(locationName);
         JLabel lblLocation = new JLabel("Location:");
         JLabel lblDocument = new JLabel("Document:");
-        JLabel lblDocumentName = new JLabel("document name");
-        JButton btnUpload = new JButton("Upload");
+        lblDocumentName = new JLabel("document name");
+        btnUpload = new JButton("Upload");
 
         JButton btnDeleteItem = new JButton("-");
         GroupLayout groupLayout = new GroupLayout(this);
@@ -143,6 +146,18 @@ public class MakeOrderView extends JPanel {
             	if (response == JOptionPane.YES_OPTION) {
             		Application.controller.setOrderLocation(orderID, locationID[cbxLocation.getSelectedIndex()]);
                     root.swapPane(new MainView(root));
+            	}
+            }
+        });
+        
+        btnUpload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+            	JFileChooser chooser = new JFileChooser();
+            	int val = chooser.showOpenDialog(getParent());
+            	if (val == JFileChooser.APPROVE_OPTION) {
+            		Application.controller.attachDocument(orderID, chooser.getSelectedFile());
+            		lblDocumentName.setText(chooser.getSelectedFile().getName());
             	}
             }
         });
