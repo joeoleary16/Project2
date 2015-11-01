@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -12,6 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import domain.Supplier;
+
 public class AddItemView extends JPanel {
 	private Application root;
 	private String orderID;
@@ -21,9 +24,13 @@ public class AddItemView extends JPanel {
 	private JTextField txtPrice;
 	private JTextField txtQuantity;
 	private JButton btnAddItem;
+	private JComboBox comboBox;
+	private String[] supplierID;
 
     /**
      * Create the panel.
+     * 
+     * This is generated code and should not be edited manually.
      */
     public AddItemView(Application root, String orderID) {
     	this.root = root;
@@ -57,7 +64,17 @@ public class AddItemView extends JPanel {
         
         JLabel lblSupplier = new JLabel("Supplier");
         
-        JComboBox comboBox = new JComboBox();
+        ArrayList<Supplier> suppliers = Application.controller.getSuppliers();
+        
+        supplierID = new String[suppliers.size()];
+        String[] supplierName = new String[suppliers.size()];
+        
+        for (int i = 0; i < suppliers.size(); ++i) {
+        	supplierID[i] = suppliers.get(i).getId();
+        	supplierName[i] = suppliers.get(i).getName();
+        }
+        
+        comboBox = new JComboBox(supplierName);
         
         btnAddItem = new JButton("Add Item");
         GroupLayout groupLayout = new GroupLayout(this);
@@ -131,7 +148,7 @@ public class AddItemView extends JPanel {
         btnAddItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-            	Application.controller.addItem(orderID, txtCatalogID.getText(), txtNamefield.getText(), Integer.parseInt(txtQuantity.getText()), Double.parseDouble(txtPrice.getText()), txtDescription.getText(), "1");
+            	Application.controller.addItem(orderID, txtCatalogID.getText(), txtNamefield.getText(), Integer.parseInt(txtQuantity.getText()), Double.parseDouble(txtPrice.getText()), txtDescription.getText(), supplierID[comboBox.getSelectedIndex()]);
                 root.swapPane(new MakeOrderView(root, orderID));
             }
         });

@@ -58,6 +58,12 @@ public class Controller {
         Order o = getOrder(orderID);
         o.setDocument(document);
     }
+    
+    public void setOrderLocation(String orderID, String locationID) {
+    	Order o = getOrder(orderID);
+    	Location l = getLocation(locationID);
+    	o.setLocation(l);
+    }
 
     public Order completeOrder(String orderID) {
         return getOrder(orderID);

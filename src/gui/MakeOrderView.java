@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+import domain.Location;
 import domain.Order;
 
 public class MakeOrderView extends JPanel {
@@ -21,22 +23,33 @@ public class MakeOrderView extends JPanel {
 	private JButton btnAddItem;
 	private JButton btnConfirmOrder;
 	private String orderID = "";
+	private String[] locationID;
+	private JComboBox cbxLocation;
 	
-    /**
+	/**
      * Create the panel.
+     * 
+     * This is generated code and should not be edited manually.
      */
     public MakeOrderView(Application root, String orderID) {
     	this.root = root;
         JLabel lblMakeOrder = new JLabel("Make Order");
         if (orderID.equals(""))
-        	this.orderID = Application.controller.makeOrder(Application.getStaffID());
+        	this.orderID = Application.controller.makeOrder(root.getStaffID());
         else
         	this.orderID = orderID;
         Order o = Application.controller.getOrder(this.orderID);
         JList listItems = new JList(o.getItems().toArray());
         btnAddItem = new JButton("+");
         btnConfirmOrder = new JButton("Confirm Order");
-        JComboBox cbxLocation = new JComboBox();
+        ArrayList<Location> locations = Application.controller.getLocations();
+        locationID = new String[locations.size()];
+        String[] locationName = new String[locations.size()];
+        for (int i = 0; i < locations.size(); ++i) {
+        	locationID[i] = locations.get(i).getId();
+        	locationName[i] = locations.get(i).getName();
+        }
+        cbxLocation = new JComboBox(locationName);
         JLabel lblLocation = new JLabel("Location:");
         JLabel lblDocument = new JLabel("Document:");
         JLabel lblDocumentName = new JLabel("document name");
@@ -125,6 +138,7 @@ public class MakeOrderView extends JPanel {
         btnConfirmOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+            	Application.controller.setOrderLocation(orderID, locationID[cbxLocation.getSelectedIndex()]);
                 root.swapPane(new MainView(root));
             }
         });

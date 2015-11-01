@@ -10,6 +10,11 @@ public class MainView extends JPanel {
     private JButton btnMakeOrder;
     private JButton btnRequestService;
 
+    /**
+     * Create the panel.
+     * 
+     * This is generated code and should not be edited manually.
+     */
     public MainView(Application root) {
         this.root = root;
         JLabel lblTitle = new JLabel("Integrated University Department Information System");

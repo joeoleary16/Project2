@@ -2,19 +2,23 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import domain.Controller;
+import domain.Location;
+import domain.Supplier;
 
 public class Application {
-	public static Controller controller;
-	private static String staffID = "";
+    public static Controller controller;
+    private static String staffID = "";
     private JFrame frmIudis;
 
     public static void main(String[] args) {
     	controller = new Controller();
+    	generateSampleData();
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -28,7 +32,21 @@ public class Application {
         });
     }
 
-    public Application() {
+    /*
+     * Sample data to be used to demonstrate the system
+     */
+    private static void generateSampleData() {
+		ArrayList<Location> locations = new ArrayList<Location>();
+		locations.add(new Location("a323", "A323 - Unum Lab", "Computer Lab"));
+		locations.add(new Location("a310", "A310", "Computer Lab"));
+		controller.setLocations(locations);
+		ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
+		suppliers.add(new Supplier("A","A","A","A","A"));
+		suppliers.add(new Supplier("B","B","B","B","B"));
+		controller.setSuppliers(suppliers);
+	}
+
+	public Application() {
         initialize();
     }
 
@@ -37,6 +55,7 @@ public class Application {
         frmIudis.setTitle("IUDIS");
         frmIudis.setBounds(100, 100, 401, 265);
         frmIudis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmIudis.setResizable(false);
 
         MainView mainView = new MainView(this);
         frmIudis.getContentPane().add(mainView, BorderLayout.CENTER);
@@ -49,11 +68,11 @@ public class Application {
         frmIudis.pack();
     }
 
-	public static String getStaffID() {
+	public String getStaffID() {
 		return staffID;
 	}
 
-	public static void setStaffID(String staffID) {
+	public void setStaffID(String staffID) {
 		Application.staffID = staffID;
 	}
 }

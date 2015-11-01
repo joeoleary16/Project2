@@ -8,8 +8,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
+import domain.Location;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RequestService extends JPanel {
     private Application root;
@@ -18,13 +22,17 @@ public class RequestService extends JPanel {
 	private JTextField txtTime;
 	private JButton btnRequestService;
     private String serviceID;
+    private JComboBox comboBox;
+    private String[] locationID;
 
-	/**
-	 * Create the panel.
-	 */
+    /**
+     * Create the panel.
+     * 
+     * This is generated code and should not be edited manually.
+     */
 	public RequestService(Application root) {
         this.root = root;
-        serviceID = Application.controller.requestService(Application.getStaffID());
+        serviceID = Application.controller.requestService(root.getStaffID());
 		
 		JLabel lblRequestService = new JLabel("Request Service");
 		
@@ -45,7 +53,15 @@ public class RequestService extends JPanel {
 		
 		JLabel lblLocation = new JLabel("Location");
 		
-		JComboBox comboBox = new JComboBox();
+		ArrayList<Location> locations = Application.controller.getLocations();
+        locationID = new String[locations.size()];
+        String[] locationName = new String[locations.size()];
+        for (int i = 0; i < locations.size(); ++i) {
+        	locationID[i] = locations.get(i).getId();
+        	locationName[i] = locations.get(i).getName();
+        }
+		
+		comboBox = new JComboBox(locationName);
 		
 		btnRequestService = new JButton("Request Service");
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -108,7 +124,7 @@ public class RequestService extends JPanel {
 		btnRequestService.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Application.controller.enterServiceDetails(serviceID, txtName.getText(), txtDescription.getText(), Double.parseDouble(txtTime.getText()), "1");
+                Application.controller.enterServiceDetails(serviceID, txtName.getText(), txtDescription.getText(), Double.parseDouble(txtTime.getText()), locationID[comboBox.getSelectedIndex()]);
                 root.swapPane(new MainView(root));
             }
         });
