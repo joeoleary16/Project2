@@ -21,27 +21,27 @@ import domain.Location;
 import domain.Order;
 
 public class MakeOrderView extends JPanel {
-	private Application root;
-	private JButton btnAddItem;
-	private JButton btnConfirmOrder;
-	private JButton btnUpload;
-	private JLabel lblDocumentName;
-	private String orderID = "";
-	private String[] locationID;
-	private JComboBox cbxLocation;
-	
-	/**
+    private Application root;
+    private JButton btnAddItem;
+    private JButton btnConfirmOrder;
+    private JButton btnUpload;
+    private JLabel lblDocumentName;
+    private String orderID = "";
+    private String[] locationID;
+    private JComboBox cbxLocation;
+
+    /**
      * Create the panel.
-     * 
+     *
      * This is generated code and should not be edited manually.
      */
     public MakeOrderView(Application root, String orderID) {
-    	this.root = root;
+        this.root = root;
         JLabel lblMakeOrder = new JLabel("Make Order");
         if (orderID.equals(""))
-        	this.orderID = Application.controller.makeOrder(root.getStaffID());
+            this.orderID = Application.controller.makeOrder(root.getStaffID());
         else
-        	this.orderID = orderID;
+            this.orderID = orderID;
         Order o = Application.controller.getOrder(this.orderID);
         JList listItems = new JList(o.getItems().toArray());
         btnAddItem = new JButton("+");
@@ -50,13 +50,13 @@ public class MakeOrderView extends JPanel {
         locationID = new String[locations.size()];
         String[] locationName = new String[locations.size()];
         for (int i = 0; i < locations.size(); ++i) {
-        	locationID[i] = locations.get(i).getId();
-        	locationName[i] = locations.get(i).getName();
+            locationID[i] = locations.get(i).getId();
+            locationName[i] = locations.get(i).getName();
         }
         cbxLocation = new JComboBox(locationName);
         JLabel lblLocation = new JLabel("Location:");
         JLabel lblDocument = new JLabel("Document:");
-        lblDocumentName = new JLabel("document name");
+        lblDocumentName = new JLabel("");
         btnUpload = new JButton("Upload");
 
         JButton btnDeleteItem = new JButton("-");
@@ -130,7 +130,7 @@ public class MakeOrderView extends JPanel {
         setLayout(groupLayout);
         addEventListeners();
     }
-    
+
     private void addEventListeners() {
         btnAddItem.addActionListener(new ActionListener() {
             @Override
@@ -138,28 +138,42 @@ public class MakeOrderView extends JPanel {
                 root.swapPane(new AddItemView(root, orderID));
             }
         });
-        
+
         btnConfirmOrder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-            	int response = JOptionPane.showConfirmDialog(null, "Are you sure you would like to confirm this order?");
-            	if (response == JOptionPane.YES_OPTION) {
-            		Application.controller.setOrderLocation(orderID, locationID[cbxLocation.getSelectedIndex()]);
-                    root.swapPane(new MainView(root));
-            	}
+                if (validateInputs()) {
+                    int response = JOptionPane.showConfirmDialog(null, "Are you sure you would like to confirm this order?");
+                    if (response == JOptionPane.YES_OPTION) {
+                        Application.controller.setOrderLocation(orderID, locationID[cbxLocation.getSelectedIndex()]);
+                        root.swapPane(new MainView(root));
+                    }
+                }
             }
         });
-        
+
         btnUpload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-            	JFileChooser chooser = new JFileChooser();
-            	int val = chooser.showOpenDialog(getParent());
-            	if (val == JFileChooser.APPROVE_OPTION) {
-            		Application.controller.attachDocument(orderID, chooser.getSelectedFile());
-            		lblDocumentName.setText(chooser.getSelectedFile().getName());
-            	}
+                JFileChooser chooser = new JFileChooser();
+                int val = chooser.showOpenDialog(getParent());
+                if (val == JFileChooser.APPROVE_OPTION) {
+                    Application.controller.attachDocument(orderID, chooser.getSelectedFile());
+                    lblDocumentName.setText(chooser.getSelectedFile().getName());
+                }
             }
         });
+    }
+
+    private boolean validateInputs() {
+        if (Application.controller.getOrder(orderID).getItems().size() < 1) {
+            JOptionPane.showMessageDialog(null,"Please add items to the order first.");
+            return false;
+        }
+        if (lblDocumentName.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"Please select document to be attached to this order.");
+            return false;
+        }
+        return true;
     }
 }
