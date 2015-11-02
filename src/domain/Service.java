@@ -7,12 +7,16 @@ public class Service {
 	private Date creationDT;
 	private String name;
 	private String description;
+	private boolean draft;
 	private double estTime;
 	private Payment payment;
 	private Location location;
 
-	public Service() {
-		//TODO: generate random unique ID 
+	public Service(String id) {
+		//TODO: generate random unique ID
+		creationDT = new Date();
+		this.id = id + '-' + creationDT.getTime();
+		draft = true;
 	}
 	
 	public Service(String id, String name, String description, double estTime) {
@@ -22,6 +26,7 @@ public class Service {
 		this.name = name;
 		this.description = description;
 		this.estTime = estTime;
+		draft = true;
 	}
 
 	/**
@@ -76,6 +81,18 @@ public class Service {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+	public Date getCreationDT() {
+		return creationDT;
+	}
+	public void setCreationDT(Date creationDT) {
+		this.creationDT = creationDT;
+	}
+	public boolean isDraft() {
+		return draft;
+	}
+	public void setDraft(boolean draft) {
+		this.draft = draft;
 	}
 
 	@Override
